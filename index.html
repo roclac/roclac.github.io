@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<body> 
+
+ 
+
+<table id="demo" border="1"> 
+
+</table> 
+
+ 
+
+<script> 
+
+ 
+
+  var xmlhttp = new XMLHttpRequest(); 
+
+  xmlhttp.onreadystatechange = function() { 
+
+    if (this.readyState == 4 && this.status == 200) { 
+
+      myFunction(this); 
+
+    } 
+
+  }; 
+
+ 
+
+// Abrimos el archivo que está alojado en el servidor cd_catalog.xml 
+
+  xmlhttp.open("GET", "cd_catalog.xml" , true); 
+
+  xmlhttp.send(); 
+
+ 
+
+function myFunction(xml) { 
+
+  var x, i, xmlDoc, table; 
+
+// Obtenemos un objeto XMLDocument con el contenido del archivo xml del servidor 
+
+  xmlDoc = xml.responseXML; 
+
+ 
+
+  table = "<tr><th>Artist</th><th>Title</th></tr>"; 
+
+ 
+
+// Obtenemos todos los nodos denominados CD del archivo xml 
+
+  x = xmlDoc.getElementsByTagName("CD"); 
+
+ 
+
+// Hacemos un bucle recorriendo todos los elementos CD 
+
+  for (i = 0; i < x.length; i++) {  
+
+ 
+
+// Del elemento X, obtenemos del primer elemento denominado "artist" 
+
+    table += "<tr><td>" +  
+
+    x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue + 
+
+    "</td><td>" + 
+
+    x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue + 
+
+    "</td></tr>"; 
+
+  } 
+
+  document.getElementById("demo").innerHTML = table; 
+
+} 
+
+</script> 
+
+ 
+
+</body> 
+
+</html> 
